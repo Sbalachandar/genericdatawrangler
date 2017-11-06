@@ -12,7 +12,10 @@ import org.apache.spark.sql.DataFrame
 
 object MultiWriters {
 
+  case class WritePath(writer: Writer, outputPath: String)
+
   val defaultPath = "src/main/resources/sales.csv"
+
   val writers: List[WritePath] =
     List(WritePath.apply(Writer.csvWriter, "/tmp/csv/salesresult/"),
       WritePath.apply(Writer.jsonWriter, "/tmp/json/salesresult/"),
@@ -25,18 +28,6 @@ object MultiWriters {
     )
   }
 
-  def main(args: Array[String]) {
-
-    writeData(readSalesData())
-
-    /*
-     more /tmp/json/salesresult/.json
-    {"transactionId":"112","customerId":"2","itemId":"2","amountPaid":"505.0"}
-    {"transactionId":"113","customerId":"3","itemId":"3","amountPaid":"510.0"}
-    {"transactionId":"114","customerId":"4","itemId":"4","amountPaid":"600.0"}
-   */
-
-  }
 
   def readSalesData(path: String = defaultPath): DataFrame = {
     val df = read(path)(Reader.csvReader)
@@ -51,6 +42,19 @@ object MultiWriters {
     )
   }
 
-  case class WritePath(writer: Writer, outputPath: String)
+
+  def main(args: Array[String]) {
+
+    writeData(readSalesData())
+
+    /*
+     more /tmp/json/salesresult/.json
+    {"transactionId":"112","customerId":"2","itemId":"2","amountPaid":"505.0"}
+    {"transactionId":"113","customerId":"3","itemId":"3","amountPaid":"510.0"}
+    {"transactionId":"114","customerId":"4","itemId":"4","amountPaid":"600.0"}
+   */
+
+  }
+
 
 }
