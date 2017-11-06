@@ -1,8 +1,8 @@
 package com.gdw.util
 
+import com.gdw.common.SparkEnv._
 import org.apache.hadoop.fs._
 import org.apache.hadoop.fs.permission.FsPermission
-import com.gdw.common.SparkEnv._
 
 
 /**
@@ -24,7 +24,7 @@ object Hdfs {
 
   def directorySize(path: String): Long = {
     val fsPath = new Path(path)
-    if(fs.isDirectory(fsPath))
+    if (fs.isDirectory(fsPath))
       fs.getContentSummary(fsPath).getLength
     else throw new IllegalArgumentException(s"'$path' is not a directory")
   }
@@ -39,7 +39,7 @@ object Hdfs {
     fc.mkdir(new Path(path), FsPermission.getDefault, createParent)
 
   def move(sourcePath: Path, targetPath: Path, overwrite: Boolean): Unit = {
-    val renameOption = if(overwrite) Options.Rename.OVERWRITE else Options.Rename.NONE
+    val renameOption = if (overwrite) Options.Rename.OVERWRITE else Options.Rename.NONE
     fc.rename(sourcePath, targetPath, renameOption)
   }
 
@@ -48,5 +48,6 @@ object Hdfs {
 
     override def next(): LocatedFileStatus = remoteIterator.next()
   }
+
 }
 

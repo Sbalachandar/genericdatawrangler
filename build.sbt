@@ -2,7 +2,9 @@ name := "GenericDataWrangler"
 
 description := "SparkGenericDataWrangler"
 
-ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
+ivyScala := ivyScala.value map {
+  _.copy(overrideScalaVersion = true)
+}
 
 version := "1.0"
 
@@ -45,8 +47,8 @@ libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.1"
 val jacksonVersion = "2.8.5"
 libraryDependencies ++=
   Seq("com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion
-    ,"com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
-    ,"com.fasterxml.jackson.datatype" % "jackson-datatype-joda" % jacksonVersion
+    , "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
+    , "com.fasterxml.jackson.datatype" % "jackson-datatype-joda" % jacksonVersion
   )
 
 //http client

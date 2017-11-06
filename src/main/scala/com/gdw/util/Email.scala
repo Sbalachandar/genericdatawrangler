@@ -11,8 +11,8 @@ object Email {
 
   private val logger = LoggerFactory.getLogger(getClass)
 
-  def sendSimpleEmail(from: String , to: Seq[String], subject: String, body: String, host: String = "smtp.googlemail.com", port: Int = 465): Unit = {
-    try{
+  def sendSimpleEmail(from: String, to: Seq[String], subject: String, body: String, host: String = "smtp.googlemail.com", port: Int = 465): Unit = {
+    try {
       val email = new SimpleEmail
       email.setHostName(host)
       email.setSmtpPort(port)
@@ -21,13 +21,13 @@ object Email {
       email.setSubject(subject)
       email.setMsg(body)
       email.send()
-    }catch {
+    } catch {
       case e: Exception => logger.error("Error occurred while sending email " + e.getStackTrace.mkString("\n"))
     }
   }
 
   def sendHtmlEmail(from: String, to: Seq[String], subject: String, body: String, host: String = "smtp.googlemail.com", port: Int = 465): Unit = {
-    try{
+    try {
       val email = new HtmlEmail
       email.setHostName(host)
       email.setSmtpPort(port)
@@ -52,7 +52,7 @@ object Email {
            |""".stripMargin
       email.setHtmlMsg(htmlBody)
       email.send()
-    }catch {
+    } catch {
       case e: Exception => logger.error("Error occurred while sending email " + e.getStackTrace.mkString("\n"))
     }
 
